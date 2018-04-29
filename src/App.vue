@@ -7,9 +7,6 @@
         </nav>
         <!--<img src="./assets/logo.png">-->
         <router-view :key="$route.fullPath"/>
-        <footer>
-
-        </footer>
     </div>
 </template>
 
