@@ -23,8 +23,12 @@
                         <div style="margin-bottom: 20px">
                             <label class="label">
                                 <p>Select a news source</p>
-                                <select class="selector">
+                                <select class="selector" name="source" v-model="source">
+                                    <option value="the-new-york-times">The New York Times</option>
                                     <option value="cnn">CNN</option>
+                                    <option value="abc-news">ABC</option>
+                                    <option value="msnbc">MSNBC</option>
+                                    <option value="usa-today">USA Today</option>
                                 </select>
                             </label>
 
@@ -34,7 +38,7 @@
                         <div>
                             <label class="label">
                                 <p>Select a language</p>
-                                <select class="selector">
+                                <select class="selector" name="language" v-model="language">
                                     <option value="en">English</option>
                                     <option value="es">Espanol</option>
                                     <option value="fr">French</option>
@@ -106,14 +110,15 @@
     export default {
         name: "ListFeed",
         components: {Pagination},
-        props: ['source'],
         data() {
             return {
                 articles: [],
                 query: this.$route.params.query,
                 page: Math.floor(this.$route.params.page) > 0 ? Math.floor(this.$route.params.page) : 1,
                 total: 0,
-                pages: 0
+                pages: 0,
+                source: 'the-new-york-times',
+                language: 'en'
             }
         },
         methods: {
@@ -132,7 +137,7 @@
             updateSource: function (query = "") {
                 this.articles.length = 0;
                 if (query.length > 0) {
-                    this.$http.get('https://www.yoprice.co/api/news/news?q=' + query + '&language=en&sources=cnn&page=' + this.page.toString())
+                    this.$http.get('https://www.yoprice.co/api/news/news?q=' + query + '&language='+this.language+'&sources=' + this.source + '&page=' + this.page.toString())
                         .then(response => {
                             console.log(response.data.pagination);
                             console.log(response.data);
@@ -142,7 +147,8 @@
                             this.articles[this.page - 1] = (response.data.articles);
                         })
                 } else {
-                    this.$http.get('https://www.yoprice.co/api/news/news?sources=cnn&language=en&page=' + this.page.toString())
+
+                    this.$http.get('https://www.yoprice.co/api/news/news?sources=' + this.source  + '&language=' + this.language + '&page=' + this.page.toString())
                         .then(response => {
 
                             this.total = response.data.pagination.total;
@@ -156,15 +162,23 @@
             this.updateSource(this.$route.params.query);
         },
         watch: {
+
+
             query: function (query) {
                 if (query.length === 0) {
                     this.page = 1;
                     this.updateSource(query)
                 }
             },
+
+            language: function(val){
+                console.log(val);
+            },
+
             source: function (val) {
-                this.updateSource(val);
-                this.page++;
+                console.log(val);
+                //this.updateSource(val);
+                //this.page++;
             },
             page: function (page) {
                 if (page > 0) {

@@ -9,7 +9,7 @@
 
 
                     <div class="col-md-4">
-                        <img class="article-img" :src="article.urlToImage">
+                        <img class="article-img" style="margin-bottom: 20px;" :src="article.urlToImage">
                     </div>
 
                     <div class="col-md-8">
