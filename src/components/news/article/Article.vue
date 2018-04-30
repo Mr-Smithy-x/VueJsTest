@@ -1,7 +1,7 @@
 <template>
     <div class="article">
 
-        <form @submit.prevent="updateArticle">
+        <form @submit.prevent="updateArticle" class="scrollable" style="padding-bottom: 200px;">
             <div v-if="article !== undefined" class="article-content container">
 
                 <h3 class="article-help"> Edit Article </h3>
@@ -178,7 +178,6 @@
         width: 100%;
         height: 100%;
         position: fixed;
-
         justify-content: center;
         justify-items: center;
     }

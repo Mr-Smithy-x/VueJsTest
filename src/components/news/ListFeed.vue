@@ -2,49 +2,90 @@
     <div class="listfeed">
 
 
-        <div class="container">
-            <form @submit.prevent="searchArticle">
-                <input class="media-input" placeholder="Enter Article" v-model="query" v-validate="'min:5'"
-                       name="query"/>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-4 col-sm-12 col-xs-12 option">
+
+                    <form @submit.prevent="searchArticle" style="margin-bottom: 20px;">
+                        <input class="media-input" placeholder="Search Article" v-model="query" v-validate="'min:3'"
+                               name="query"/>
 
 
-                <transition name="alert-in" enter-active-class="animated flipInX"
-                            leave-active-class="animated flipOutX">
-                    <p class="alert" v-if="errors.has('query')">{{errors.first('query')}}</p>
-                </transition>
-            </form>
+                        <transition name="alert-in" enter-active-class="animated flipInX"
+                                    leave-active-class="animated flipOutX">
+                            <p class="alert" v-if="errors.has('query')">{{errors.first('query')}}</p>
+                        </transition>
+                    </form>
 
-            <ul class="media-list">
+                    <div class="sources">
 
-                <transition-group name="list" enter-active-class="animated bounceInUp"
-                                  leave-active-class="animated bounceOutDown">
+                        <div style="margin-bottom: 20px">
+                            <label class="label">
+                                <p>Select a news source</p>
+                                <select class="selector">
+                                    <option value="cnn">CNN</option>
+                                </select>
+                            </label>
 
-                    <li class="media" v-for="(article, index) in articles[page-1]" :key="index">
-                        <div class="media-left">
-                            <a v-bind:href="article.url" target="_blank">
-                                <img class="media-object" v-bind:src="article.urlToImage"/>
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">
-                                <a v-bind:href="article.url" target="_blank">
-                                    {{article.title}}
-                                </a>
-                            </h4>
 
-                            <h5>
-                                <i>by {{article.author}}</i>
-                            </h5>
-
-                            <p class="media-desc">{{article.description}}</p>
                         </div>
 
+                        <div>
+                            <label class="label">
+                                <p>Select a language</p>
+                                <select class="selector">
+                                    <option value="en">English</option>
+                                    <option value="es">Espanol</option>
+                                    <option value="fr">French</option>
+                                    <option value="de">Germany</option>
+                                </select>
+                            </label>
 
-                        <router-link :to="{ name: 'article',params: {id: article.id}}"><i
-                                class="fa fa-edit"></i></router-link>
-                    </li>
-                </transition-group>
-            </ul>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8 col-sm-12 col-xs-12">
+
+                    <ul class="media-list" style="margin-left: 0px; padding-left: 0px;">
+
+                        <transition-group name="list" enter-active-class="animated bounceInUp"
+                                          leave-active-class="animated bounceOutDown">
+
+                            <li class="media" v-for="(article, index) in articles[page-1]" :key="index">
+                                <div class="media-left">
+                                    <a v-bind:href="article.url" target="_blank">
+                                        <img class="media-object" v-bind:src="article.urlToImage"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">
+                                        <a v-bind:href="article.url" target="_blank">
+                                            {{article.title}}
+                                        </a>
+                                    </h4>
+
+                                    <h5>
+                                        <i>by {{article.author}}</i>
+                                    </h5>
+
+                                    <p class="media-desc">{{article.description}}</p>
+                                </div>
+
+
+                                <router-link :to="{ name: 'article',params: {id: article.id}}"><i
+                                        class="fa fa-edit"></i></router-link>
+                            </li>
+                        </transition-group>
+                    </ul>
+
+                </div>
+
+            </div>
         </div>
 
 

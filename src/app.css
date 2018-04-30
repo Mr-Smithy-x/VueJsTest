@@ -94,3 +94,8 @@ footer {
     margin-top: -20px;
 }
 
+.scrollable {
+    overflow: scroll;
+    height: 100%;
+}
+
