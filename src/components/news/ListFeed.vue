@@ -42,7 +42,7 @@
                                     <option value="en">English</option>
                                     <option value="es">Espanol</option>
                                     <option value="fr">French</option>
-                                    <option value="de">Germany</option>
+                                    <option value="de">German</option>
                                 </select>
                             </label>
 
